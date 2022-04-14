@@ -3,13 +3,16 @@ var weatherContainer = document.querySelector(".weather-container");
 var cityInput = document.querySelector(".city-input");
 var cityContainer = document.querySelector(".search-container");
 
-var currencyExchangeHandler = (code, curr) => {
-  var currType = Object.keys(curr);
+var currencyExchangeHandler = (money) => {
   var currencyEl = document.createElement("p");
   currencyEl.className = "curr m-4";
-  currencyEl.innerHTML = "";
+  currencyEl.innerHTML =
+    money.old_amount +
+    money.old_currency +
+    " is equal to " +
+    money.new_amount +
+    money.new_currency;
   flightContainer.append(currencyEl);
-  console.log(currType);
 };
 
 var currencyExchangeFetch = (currencyCode) => {
@@ -26,15 +29,15 @@ var currencyExchangeFetch = (currencyCode) => {
   };
 
   fetch(
-    "https://currency-converter5.p.rapidapi.com/currency/convert?format=json&from=USD&to=" +
+    "https://currency-converter-by-api-ninjas.p.rapidapi.com/v1/convertcurrency?have=USD&want=" +
       currencyCode +
-      "&amount=100",
+      "&amount=1",
     requestOptions
   )
     .then((response) => response.json())
     .then((foreignMoney) => {
       console.log(foreignMoney);
-      currencyExchangeHandler(currencyCode, foreignMoney.rates);
+      currencyExchangeHandler(foreignMoney);
     })
     .catch((error) => console.log("error", error));
 };
