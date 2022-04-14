@@ -1,6 +1,6 @@
 var weatherInfoContainer = document.querySelector(".weather-info");
 var currencyInfoContainer = document.querySelector(".currency-info");
-var cityInput = document.querySelector(".city");
+var cityInput = document.querySelector(".search");
 var searchForm = document.querySelector(".search-form");
 
 // create updated weather and air info
