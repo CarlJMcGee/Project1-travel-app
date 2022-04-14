@@ -26,37 +26,41 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <div>
-      <nav>
-        <h1>Travel App (title in process)</h1>
-      </nav>
+    <div class="navbar has-background-success">
+        Travel App
     </div>
     <!--City Search-->
-    <div class="column">
-      <input type="text" class="city">
-      <button class="searchBtn" id="searchBtn">Search</button>
-      <button class="previous" id="previous">Previous Searches</button>
+    <div class="mt-3">
+      <input type="text" class="search" placeholder="Minneapolis">
+      <button class="button is-success" id="searchBtn">Search</button>
+      <button class="button is-success" id="previous">Previous Searches</button>
     </div>
 
     <!--Currency info-->
-    <article class="columns">
-      <section>
-        <div class="currency card column">
-          <h2 class="card-header">Currency Information</h2>
+    <article class="columns mt-3">
+      <section class="column is-half">
+        <div class="currency card">
+          <div class="card-header has-background-success">
+            <h2>Currency Information</h2>
+          </div>
+          
           <div class="card-content">
-            <div class="column"></div>
-            <div class="column"></div>
-            <div class="column"></div>
-            <div class="column"></div>
+            <div class="column">$$$$$$$</div>
+            <div class="column">$$$$$$$</div>
+            <div class="column">$$$$$$$</div>
+            <div class="column">$$$$$$$</div>
           </div>
         </div>
         </div>
       </section>
   
     <!--Weather info-->
-      <section>
-        <div class="weatherCast column card">
-          <h2 class="card-header">Weather Forcast</h2>
+      <section class="column is-half">
+        <div class="weatherCast card">
+          <div class="card-header has-background-success">
+            <h2>Weather Forcast</h2>
+          </div>
+          
           <div class="card-content">
             <div class="column">Temperature: 80</div>
             <div class="column">Wind: 5 mph</div>
