@@ -1,3 +1,7 @@
+![GitHub repo size](https://img.shields.io/github/repo-size/CarlJMcGee/Project1-travel-app)
+![GitHub top language](https://img.shields.io/github/languages/top/CarlJMcGee/Project1-travel-app)
+
+
 # Challenge1-travel-app
 TEAM #2 
  
