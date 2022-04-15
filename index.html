@@ -32,8 +32,8 @@
     <!--City Search-->
     <form class="search-form container columns mt-3">
       <input type="text" class="search input column ml-4" placeholder="Minneapolis">
-      <button class="button background-quaternary column ml-2 p-0 has-text-light" id="searchBtn">Search</button>
-      <button class="button background-quaternary column ml-2 p-0 has-text-light" id="previous">Previous Searches</button>
+      <button type="submit" class="button background-quaternary column ml-2 p-0 has-text-light" id="searchBtn">Search</button>
+      <button type="button" class="button background-quaternary column ml-2 p-0 has-text-light" id="previous">Previous Searches</button>
     </form>
 
     <!--Currency info-->
@@ -45,10 +45,13 @@
           </div>
           
           <div class="currency-info card-content">
-            <div class="column">$$$$$$$</div>
-            <div class="column">$$$$$$$</div>
-            <div class="column">$$$$$$$</div>
-            <div class="column">$$$$$$$</div>
+            <form class="currency-form column columns">
+              <input type="text" value="1" class="money-input input has-text-right">
+              <p class="column is-10">USD</p>
+            </form>
+            <div class="column">is</div>
+            <div class="money-output column">e.g. 126.4 JPY | 0.9 EUR | 0.77 GBP</div>
+            <div class="column"></div>
           </div>
         </div>
         </div>
