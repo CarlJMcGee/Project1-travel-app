@@ -139,6 +139,7 @@ var geoHandler = (lat, lon) => {
 };
 
 var currencyInfoCreate = ({ new_amount, new_currency }) => {
+  currencyInput.removeAttribute("disabled");
   currencyOutput.textContent = new_amount + " " + new_currency;
 };
 
