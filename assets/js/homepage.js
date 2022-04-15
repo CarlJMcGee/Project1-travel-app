@@ -4,17 +4,92 @@ var cityInput = document.querySelector(".search");
 var searchForm = document.querySelector(".search-form");
 
 // create updated weather and air info
-var weatherInfoHandler = ({ tp, hu, ws }, { aqius }) => {
+var weatherInfoHandler = ({ tp, hu, ws, ic }, { aqius }) => {
   // empty old data from container
   $(weatherInfoContainer).empty();
-  for (var i = 0; i < 4; i++) {
-    //temp
-    var tempF = (tp * 9) / 5 + 32;
-    var tempEl = document.createElement("p");
-    tempEl.className = "temp column";
-    tempEl.innerHTML = "Temperature: " + tempF + "℉";
-    weatherInfoContainer.append(tempEl);
-  }
+
+  // weather icon
+  var iconPicker = (iconCode) => {
+    switch (ic) {
+      case "01d":
+        return "./assets/img/01d.png";
+        break;
+
+      case "01n":
+        return "./assets/img/01n.png";
+        break;
+
+      case "02d":
+        return "./assets/img/02d.png";
+        break;
+
+      case "02n":
+        return "./assets/img/02n.png";
+        break;
+      case "03d":
+        return "./assets/img/03d.png";
+        break;
+
+      case "04n":
+        return "./assets/img/04d.png";
+        break;
+      case "09d":
+        return "./assets/img/09d.png";
+        break;
+
+      case "10d":
+        return "./assets/img/10d.png";
+        break;
+
+      case "10n":
+        return "./assets/img/10n.png";
+        break;
+
+      case "11d":
+        return "./assets/img/11d.png";
+        break;
+
+      case "13d":
+        return "./assets/img/13d.png";
+        break;
+
+      case "50d":
+        return "./assets/img/50d.png";
+        break;
+      default:
+        break;
+    }
+  };
+  var iconEl = document.createElement("img");
+  iconEl.className = "image is-64x64";
+  iconEl.setAttribute("src", iconPicker(ic));
+  iconEl.innerHTML = "";
+  weatherInfoContainer.append(iconEl);
+
+  // temp
+  var tempF = (tp * 9) / 5 + 32;
+  var tempEl = document.createElement("p");
+  tempEl.className = "temp column";
+  tempEl.innerHTML = "Temperature: " + tempF + "℉";
+  weatherInfoContainer.append(tempEl);
+
+  // humidity
+  var humidityEl = document.createElement("p");
+  humidityEl.className = "humidity column";
+  humidityEl.innerHTML = "Humidity: " + hu + "%";
+  weatherInfoContainer.append(humidityEl);
+
+  // windspeed
+  var windEl = document.createElement("p");
+  windEl.className = "wind column";
+  windEl.innerHTML = "Wind: " + ws + "m/s";
+  weatherInfoContainer.append(windEl);
+
+  // air quality
+  var airEl = document.createElement("p");
+  airEl.className = "air column";
+  airEl.innerHTML = "Air Quality Index (US): " + aqius;
+  weatherInfoContainer.append(airEl);
 };
 
 var geoHandler = (lat, lon) => {
@@ -57,6 +132,11 @@ var fetchCityLatLon = (cityName) => {
     .then((response) => response.json())
     .then((geo) => {
       console.log(geo);
+      if (geo.length === 0) {
+        cityInput.value = "";
+        cityInput.setAttribute("placeholder", "Please Enter A Valid City Name");
+        return false;
+      }
       geoHandler(geo[0].lat, geo[0].lon);
 
       var codeToCountry = currencyCode.find((code) => {
