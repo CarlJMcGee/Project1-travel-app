@@ -1,10 +1,11 @@
+// html elements
 var weatherInfoContainer = document.querySelector(".weather-info");
 var currencyInfoContainer = document.querySelector(".currency-info");
 var cityInput = document.querySelector(".search");
 var searchForm = document.querySelector(".search-form");
 var currencyForm = document.querySelector(".currency-form");
-var currencyInput = document.querySelector(".money-input");
-var currencyOutput = document.querySelector(".money-output");
+var moneyInput = document.querySelector(".money-input");
+var moneyOutput = document.querySelector(".money-output");
 
 // current city info
 var currentCity = {
@@ -15,10 +16,13 @@ var currentCity = {
 
 // convert country to currency code
 function getCurrencyCode(geo) {
+  // find matching country array from CountryCode obj
   var codeToCountry = currencyCode.find((code) => {
     return code.CountryCode === geo[0].country;
   });
   console.log(codeToCountry);
+
+  // send currency code to exchange API
   currencyExchangeFetch(codeToCountry.Code);
 }
 
@@ -88,6 +92,7 @@ var weatherInfoHandler = ({ tp, hu, ws, ic }, { aqius }) => {
   weatherInfoContainer.append(iconEl);
 
   // temp
+  // convert ℃ to ℉
   var tempF = (tp * 9) / 5 + 32;
   var tempEl = document.createElement("p");
   tempEl.className = "temp column";
@@ -113,7 +118,8 @@ var weatherInfoHandler = ({ tp, hu, ws, ic }, { aqius }) => {
   weatherInfoContainer.append(airEl);
 };
 
-var geoHandler = (lat, lon) => {
+// get weather and air data from airvisual API
+var weatherFetch = (lat, lon) => {
   var requestOptions = {
     method: "GET",
     redirect: "follow",
@@ -130,6 +136,8 @@ var geoHandler = (lat, lon) => {
     .then((response) => response.json())
     .then((airWeather) => {
       console.log(airWeather);
+
+      // send current weather and pollution data to handler to be drawn
       weatherInfoHandler(
         airWeather.data.current.weather,
         airWeather.data.current.pollution
@@ -138,13 +146,19 @@ var geoHandler = (lat, lon) => {
     .catch((error) => console.log("error", error));
 };
 
-var currencyInfoCreate = ({ new_amount, new_currency }) => {
-  currencyInput.removeAttribute("disabled");
-  currencyOutput.textContent = new_amount + " " + new_currency;
+// display fetched exchange info
+var currencyInfoHandler = ({ new_amount, new_currency }) => {
+  // unlock money text input
+  moneyInput.removeAttribute("disabled");
+
+  // draw converted amount and currency type
+  moneyOutput.textContent = new_amount + " " + new_currency;
 };
 
+// get exchange info from currency-converter API
 var currencyExchangeFetch = (countryCode) => {
-  var exchangeAmount = currencyInput.value;
+  // get money input value
+  var exchangeAmount = moneyInput.value;
 
   var myHeaders = new Headers();
   myHeaders.append(
@@ -168,12 +182,16 @@ var currencyExchangeFetch = (countryCode) => {
     .then((response) => response.json())
     .then((convertedAmount) => {
       console.log(convertedAmount);
+      // save exchange info to current city obj
       currentCity.money.push(convertedAmount);
-      currencyInfoCreate(convertedAmount);
+
+      // send exchange info to handler to be drawn
+      currencyInfoHandler(convertedAmount);
     })
     .catch((error) => console.log("error", error));
 };
 
+// get latitude and longitude from city name
 var fetchCityLatLon = (cityName) => {
   var requestOptions = {
     method: "GET",
@@ -189,16 +207,21 @@ var fetchCityLatLon = (cityName) => {
     .then((response) => response.json())
     .then((geo) => {
       console.log(geo);
+      // check if API returned a valid city
       if (geo.length === 0) {
+        // if fetch result is empty, alert user to enter valid city name
         cityInput.value = "";
         cityInput.setAttribute("placeholder", "Please Enter A Valid City Name");
         return false;
       }
+
       // save city location data
       currentCity.location.push(geo[0]);
 
-      geoHandler(geo[0].lat, geo[0].lon);
+      // send latitude and longitude to weather API
+      weatherFetch(geo[0].lat, geo[0].lon);
 
+      // send city info to currency code finder
       getCurrencyCode(geo);
     })
     .catch((error) => console.log("error", error));
@@ -207,18 +230,26 @@ var fetchCityLatLon = (cityName) => {
 // on click, send city search input to geo locate fetch
 $(searchForm).submit(function (e) {
   e.preventDefault();
+
+  // pull city name from text input
   var city = cityInput.value;
+
   //save city name
   currentCity.cityName.push(city);
+
+  // send city name to geo locate API
   fetchCityLatLon(city);
 });
 
 // currency input searches for exchange info
 $(currencyForm).submit(function (e) {
   e.preventDefault();
+
+  // send saved city location data to currency code finder
   getCurrencyCode(currentCity.location);
 });
 
+// currency code obj
 var currencyCode = [
   {
     Country: "New Zealand",
