@@ -53,7 +53,7 @@ var weatherInfoHandler = ({ tp, hu, ws, ic }, { aqius }) => {
         return "./assets/img/03d.png";
         break;
 
-      case "04n":
+      case "04d":
         return "./assets/img/04d.png";
         break;
 
