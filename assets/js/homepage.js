@@ -2,6 +2,25 @@ var weatherInfoContainer = document.querySelector(".weather-info");
 var currencyInfoContainer = document.querySelector(".currency-info");
 var cityInput = document.querySelector(".search");
 var searchForm = document.querySelector(".search-form");
+var currencyForm = document.querySelector(".currency-form");
+var currencyInput = document.querySelector(".money-input");
+var currencyOutput = document.querySelector(".money-output");
+
+// current city info
+var currentCity = {
+  cityName: [],
+  location: [],
+  money: [],
+};
+
+// convert country to currency code
+function getCurrencyCode(geo) {
+  var codeToCountry = currencyCode.find((code) => {
+    return code.CountryCode === geo[0].country;
+  });
+  console.log(codeToCountry);
+  currencyExchangeFetch(codeToCountry.Code);
+}
 
 // create updated weather and air info
 var weatherInfoHandler = ({ tp, hu, ws, ic }, { aqius }) => {
@@ -119,21 +138,13 @@ var geoHandler = (lat, lon) => {
     .catch((error) => console.log("error", error));
 };
 
-var currencyInfoCreate = ({
-  new_amount,
-  new_currency,
-  old_amount,
-  old_currency,
-}) => {
-  $(currencyInfoContainer).empty();
-  var homeCurrencyEl = document.createElement("p");
-  homeCurrencyEl.className = "column";
-  homeCurrencyEl.innerHTML =
-    old_amount + old_currency + " is " + new_amount + new_currency;
-  currencyInfoContainer.append(homeCurrencyEl);
+var currencyInfoCreate = ({ new_amount, new_currency }) => {
+  currencyOutput.textContent = new_amount + " " + new_currency;
 };
 
 var currencyExchangeFetch = (countryCode) => {
+  var exchangeAmount = currencyInput.value;
+
   var myHeaders = new Headers();
   myHeaders.append(
     "X-RapidAPI-Key",
@@ -149,12 +160,14 @@ var currencyExchangeFetch = (countryCode) => {
   fetch(
     "https://currency-converter-by-api-ninjas.p.rapidapi.com/v1/convertcurrency?have=USD&want=" +
       countryCode +
-      "&amount=1",
+      "&amount=" +
+      exchangeAmount,
     requestOptions
   )
     .then((response) => response.json())
     .then((convertedAmount) => {
       console.log(convertedAmount);
+      currentCity.money.push(convertedAmount);
       currencyInfoCreate(convertedAmount);
     })
     .catch((error) => console.log("error", error));
@@ -180,13 +193,12 @@ var fetchCityLatLon = (cityName) => {
         cityInput.setAttribute("placeholder", "Please Enter A Valid City Name");
         return false;
       }
+      // save city location data
+      currentCity.location.push(geo[0]);
+
       geoHandler(geo[0].lat, geo[0].lon);
 
-      var codeToCountry = currencyCode.find((code) => {
-        return code.CountryCode === geo[0].country;
-      });
-      console.log(codeToCountry);
-      currencyExchangeFetch(codeToCountry.Code);
+      getCurrencyCode(geo);
     })
     .catch((error) => console.log("error", error));
 };
@@ -195,7 +207,15 @@ var fetchCityLatLon = (cityName) => {
 $(searchForm).submit(function (e) {
   e.preventDefault();
   var city = cityInput.value;
+  //save city name
+  currentCity.cityName.push(city);
   fetchCityLatLon(city);
+});
+
+// currency input searches for exchange info
+$(currencyForm).submit(function (e) {
+  e.preventDefault();
+  getCurrencyCode(currentCity.location);
 });
 
 var currencyCode = [
