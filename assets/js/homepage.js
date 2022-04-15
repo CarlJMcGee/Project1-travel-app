@@ -33,6 +33,7 @@ var weatherInfoHandler = ({ tp, hu, ws, ic }, { aqius }) => {
       case "04n":
         return "./assets/img/04d.png";
         break;
+
       case "09d":
         return "./assets/img/09d.png";
         break;
@@ -56,6 +57,7 @@ var weatherInfoHandler = ({ tp, hu, ws, ic }, { aqius }) => {
       case "50d":
         return "./assets/img/50d.png";
         break;
+
       default:
         break;
     }
@@ -117,6 +119,47 @@ var geoHandler = (lat, lon) => {
     .catch((error) => console.log("error", error));
 };
 
+var currencyInfoCreate = ({
+  new_amount,
+  new_currency,
+  old_amount,
+  old_currency,
+}) => {
+  $(currencyInfoContainer).empty();
+  var homeCurrencyEl = document.createElement("p");
+  homeCurrencyEl.className = "column";
+  homeCurrencyEl.innerHTML =
+    old_amount + old_currency + " is " + new_amount + new_currency;
+  currencyInfoContainer.append(homeCurrencyEl);
+};
+
+var currencyExchangeFetch = (countryCode) => {
+  var myHeaders = new Headers();
+  myHeaders.append(
+    "X-RapidAPI-Key",
+    "f0229a1fbcmshc42a2b54fa36ec7p1377a3jsn239b6d14cdfb"
+  );
+
+  var requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  fetch(
+    "https://currency-converter-by-api-ninjas.p.rapidapi.com/v1/convertcurrency?have=USD&want=" +
+      countryCode +
+      "&amount=1",
+    requestOptions
+  )
+    .then((response) => response.json())
+    .then((convertedAmount) => {
+      console.log(convertedAmount);
+      currencyInfoCreate(convertedAmount);
+    })
+    .catch((error) => console.log("error", error));
+};
+
 var fetchCityLatLon = (cityName) => {
   var requestOptions = {
     method: "GET",
@@ -143,7 +186,7 @@ var fetchCityLatLon = (cityName) => {
         return code.CountryCode === geo[0].country;
       });
       console.log(codeToCountry);
-      // currencyExchangeFetch(codeToCountry.Code);
+      currencyExchangeFetch(codeToCountry.Code);
     })
     .catch((error) => console.log("error", error));
 };
