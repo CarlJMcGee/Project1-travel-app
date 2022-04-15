@@ -1,0 +1,23 @@
+:root {
+  --primariy-color: #48c78e;
+  --secondary-color: #4a896a;
+  --tertiary-color: #cffbe2;
+  --quaternary-color: #0059a8;
+}
+
+html {
+  background-color: var(--tertiary-color);
+}
+
+.background-primary {
+  background-color: var(--primariy-color);
+}
+.background-secondary {
+  background-color: var(--secondary-color);
+}
+.background-tertiary {
+  background-color: var(--tertiary-color);
+}
+.background-quaternary {
+  background-color: var(--quaternary-color);
+}
