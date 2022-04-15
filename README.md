@@ -38,7 +38,7 @@ Currency Exchange  Displays:
 - Rejene Giinther
 
 
-GitHub Project Repo
+[GitHub Project Repo](https://github.com/CarlJMcGee/Project1-travel-app)
 
 
-GitHub Deployed Link
+[GitHub Deployed Link](https://carljmcgee.github.io/Project1-travel-app/)
