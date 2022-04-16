@@ -2,12 +2,12 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/CarlJMcGee/Project1-travel-app)
 
 
-# Challenge1-travel-app
+# SunFund
 TEAM #2 
  
 ## UofM BootCamp: Project 1
 
-### Purpose: With search input fetch data for Weather and Current Exchange upon entering city name
+### Purpose: With search input fetch data for Weather and Current Exchange 💲 upon entering city name
 
 How to use:
 Click on search bar
