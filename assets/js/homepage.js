@@ -135,7 +135,7 @@ var weatherFetch = (lat, lon) => {
   };
 
   fetch(
-    "http://api.airvisual.com/v2/nearest_city?lat=" +
+    "https://api.airvisual.com/v2/nearest_city?lat=" +
       lat +
       "&lon=" +
       lon +
@@ -210,7 +210,7 @@ var fetchCityLatLon = (cityName) => {
   };
 
   fetch(
-    "http://api.openweathermap.org/geo/1.0/direct?q=" +
+    "https://api.openweathermap.org/geo/1.0/direct?q=" +
       cityName +
       "&limit=1&appid=2d81bc1f1b05a9a201fdb0947c29daec",
     requestOptions
