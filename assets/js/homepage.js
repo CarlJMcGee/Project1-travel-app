@@ -277,6 +277,7 @@ $(currencyForm).submit(function (e) {
   getCurrencyCode(currentCity.location);
 });
 
+// load city from local storage
 load();
 
 // currency code obj
