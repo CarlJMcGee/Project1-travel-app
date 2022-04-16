@@ -14,6 +14,10 @@ var currentCity = {
   money: [],
 };
 
+var save = () => {
+  localStorage.setItem("currentCity", JSON.stringify(currentCity));
+};
+
 // convert country to currency code
 function getCurrencyCode(geo) {
   // find matching country array from CountryCode obj
@@ -53,10 +57,12 @@ var weatherInfoHandler = ({ tp, hu, ws, ic }, { aqius }) => {
         return "./assets/img/03d.png";
         break;
 
+      case "04n":
       case "04d":
         return "./assets/img/04d.png";
         break;
 
+      case "09n":
       case "09d":
         return "./assets/img/09d.png";
         break;
@@ -69,14 +75,17 @@ var weatherInfoHandler = ({ tp, hu, ws, ic }, { aqius }) => {
         return "./assets/img/10n.png";
         break;
 
+      case "11n":
       case "11d":
         return "./assets/img/11d.png";
         break;
 
+      case "13n":
       case "13d":
         return "./assets/img/13d.png";
         break;
 
+      case "50n":
       case "50d":
         return "./assets/img/50d.png";
         break;
@@ -153,6 +162,8 @@ var currencyInfoHandler = ({ new_amount, new_currency }) => {
 
   // draw converted amount and currency type
   moneyOutput.textContent = new_amount + " " + new_currency;
+
+  save();
 };
 
 // get exchange info from currency-converter API
@@ -227,6 +238,23 @@ var fetchCityLatLon = (cityName) => {
     .catch((error) => console.log("error", error));
 };
 
+// load saved data
+var load = () => {
+  var savedData = JSON.parse(localStorage.getItem("currentCity"));
+  console.log(savedData);
+  if (savedData === null) {
+    return false;
+  } else if (savedData.cityName.length > 0) {
+    cityInput.value = savedData.cityName;
+    var city = cityInput.value;
+    currentCity.cityName.splice(0, 1, city);
+
+    fetchCityLatLon(city);
+  } else {
+    return false;
+  }
+};
+
 // on click, send city search input to geo locate fetch
 $(searchForm).submit(function (e) {
   e.preventDefault();
@@ -248,6 +276,8 @@ $(currencyForm).submit(function (e) {
   // send saved city location data to currency code finder
   getCurrencyCode(currentCity.location);
 });
+
+load();
 
 // currency code obj
 var currencyCode = [
