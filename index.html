@@ -26,6 +26,58 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
+    <div class="navbar background-secondary has-text-light">
+        SunFunds
+    </div>
+    <!--City Search-->
+    <form class="search-form container  my-3 is-centered">
+      <input type="text" class="search input column is-two-thirds" placeholder="Minneapolis">
+    </form>
+    <div class="column columns is-centered">
+      <button type="submit" class="button background-quaternary column ml-2 p-0 has-text-light is-one-quarter" id="searchBtn">Search</button>
+      <button type="button" class="button background-quaternary column ml-2 p-0 has-text-light is-one-quarter" id="previous">Previous Searches</button>
+    </div>
+
+    <!--Currency info-->
+    <article class="columns mt-3 mx-2">
+      <section class="column is-half">
+        <div class="currency card">
+          <div class="card-header background-primary">
+            <h2 class="title has-text-light">Currency Information</h2>
+          </div>
+          
+          <div class="currency-info card-content">
+            <form class="currency-form column columns">
+              <input type="text" value="1" class="money-input input has-text-right" disabled>
+              <p class="column is-10">USD is equal to</p>
+            </form>
+            <div class="money-output column">e.g. 126.4 JPY | 0.9 EUR | 0.77 GBP</div>
+          </div>
+        </div>
+        </div>
+      </section>
+  
+    <!--Weather info-->
+      <section class="column is-half">
+        <div class="weatherCast card">
+          <div class="card-header background-primary has-text-light">
+            <h2 class="title has-text-light">Weather Forcast</h2>
+          </div>
+          
+          <div class="weather-info card-content">
+            <img src="./assets/img/02d.png" class="image is-64x64" alt="">
+            <div class="column">Temperature: ℉</div>
+            <div class="column">Wind: m/s</div>
+            <div class="column">Humidity: %</div>
+            <div class="column">Air Quality Index (US): </div>
+          </div>
+        </div>
+      </section>
+    </article>
+    <footer class="footer">
+      <p>© 2022 SunFunds</p>
+    </footer>
+    <!--APIs-->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
       integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
@@ -38,6 +90,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <!-- java script -->
     <script src="./assets/js/homepage.js"></script>
   </body>
 </html>
