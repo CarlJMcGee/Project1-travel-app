@@ -7,7 +7,8 @@ TEAM #2
  
 ## UofM BootCamp: Project 1
 
-### Purpose: With search input fetch data for Weather and Current Exchange upon entering city name
+### Purpose: 
+When search is input, App fetches data for Weather and Current Exchange upon entering the city name.
 
 How to use:
 Click on search bar
@@ -15,20 +16,16 @@ Type  "city name"
 
 ### Features
 Weather ☀️ Displays:
+ - Weather icon
  - Temperature 
  - Windspeed
  - Humidity
  - AQI
- - 
 
 
 Currency Exchange 💲  Displays:
- - USD 
- - Other $$$
- - 
- - 
-
-
+ - USD to Other Currencies 
+ 
 ### Credits
 - Cam Cole
 - Carl McGee
