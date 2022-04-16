@@ -27,14 +27,16 @@
   </head>
   <body>
     <div class="navbar background-secondary has-text-light">
-        Travel App
+        SunFunds
     </div>
     <!--City Search-->
-    <form class="search-form container columns mt-3">
-      <input type="text" class="search input column ml-4" placeholder="Minneapolis">
-      <button type="submit" class="button background-quaternary column ml-2 p-0 has-text-light" id="searchBtn">Search</button>
-      <button type="button" class="button background-quaternary column ml-2 p-0 has-text-light" id="previous">Previous Searches</button>
+    <form class="search-form container  my-3 is-centered">
+      <input type="text" class="search input column is-two-thirds" placeholder="Minneapolis">
     </form>
+    <div class="column columns is-centered">
+      <button type="submit" class="button background-quaternary column ml-2 p-0 has-text-light is-one-quarter" id="searchBtn">Search</button>
+      <button type="button" class="button background-quaternary column ml-2 p-0 has-text-light is-one-quarter" id="previous">Previous Searches</button>
+    </div>
 
     <!--Currency info-->
     <article class="columns mt-3 mx-2">
@@ -47,11 +49,9 @@
           <div class="currency-info card-content">
             <form class="currency-form column columns">
               <input type="text" value="1" class="money-input input has-text-right" disabled>
-              <p class="column is-10">USD</p>
+              <p class="column is-10">USD is equal to</p>
             </form>
-            <div class="column">is</div>
             <div class="money-output column">e.g. 126.4 JPY | 0.9 EUR | 0.77 GBP</div>
-            <div class="column"></div>
           </div>
         </div>
         </div>
@@ -68,16 +68,15 @@
             <img src="./assets/img/02d.png" class="image is-64x64" alt="">
             <div class="column">Temperature: ℉</div>
             <div class="column">Wind: m/s</div>
-            <div class="column">Hunmidity: %</div>
+            <div class="column">Humidity: %</div>
             <div class="column">Air Quality Index (US): </div>
           </div>
         </div>
       </section>
     </article>
-    <!--Possible flight check-->
-    <div class="flightcheck">
-
-    </div>
+    <footer class="footer">
+      <p>© 2022 SunFunds</p>
+    </footer>
     <!--APIs-->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
