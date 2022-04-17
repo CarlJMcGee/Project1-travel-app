@@ -7,7 +7,13 @@ var currencyForm = document.querySelector(".currency-form");
 var moneyInput = document.querySelector(".money-input");
 var moneyOutput = document.querySelector(".money-output");
 
-import currencyCode from "./country-codes.json" assert { type: "json" };
+var currencyCode = [];
+
+fetch("./assets/js/country-codes.json")
+  .then((response) => response.json())
+  .then((data) => {
+    currencyCode = data;
+  });
 
 // current city info
 var currentCity = {
