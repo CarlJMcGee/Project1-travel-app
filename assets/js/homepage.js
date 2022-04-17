@@ -7,8 +7,8 @@ var currencyForm = document.querySelector(".currency-form");
 var moneyInput = document.querySelector(".money-input");
 var moneyOutput = document.querySelector(".money-output");
 
+// pull country code data from json file
 var currencyCode = [];
-
 fetch("./assets/js/country-codes.json")
   .then((response) => response.json())
   .then((data) => {
@@ -271,7 +271,7 @@ $(searchForm).submit(function (e) {
   var city = cityInput.value;
 
   //save city name
-  currentCity.cityName.push(city);
+  currentCity.cityName.splice(0, 1, city);
 
   // send city name to geo locate API
   fetchCityLatLon(city);
