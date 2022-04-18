@@ -67,6 +67,8 @@ var weatherInfoHandler = ({ tp, hu, ws, ic }, { aqius }) => {
       case "02n":
         return "./assets/img/02n.png";
         break;
+
+      case "03n":
       case "03d":
         return "./assets/img/03d.png";
         break;
@@ -253,9 +255,17 @@ var fetchCityLatLon = (cityName) => {
 };
 
 // add previous searches to dropdown menu
-var loadPrevious = () => {
+var loadPreviousEls = () => {
   $(previousMenu).empty();
-  previousSearches = JSON.parse(localStorage.getItem("previous-search"));
+  if (localStorage.getItem("previous-search")) {
+    previousSearches = JSON.parse(localStorage.getItem("previous-search"));
+  }
+
+  if (previousSearches.length > 9) {
+    previousSearches.splice(9, 1);
+    localStorage.setItem("previous-search", JSON.stringify(previousSearches));
+  }
+
   for (var i = 1; i < previousSearches.length; i++) {
     var prevCity = document.createElement("a");
     prevCity.className = "dropdown-item is-size-5";
@@ -264,10 +274,31 @@ var loadPrevious = () => {
   }
 };
 
+var previousEntryCheck = () => {
+  if (cityInput.value != "") {
+    if (previousSearches.length === 0) {
+      previousSearches.push(cityInput.value);
+    } else if (previousSearches.includes(cityInput.value)) {
+      var cityCopyIndex = previousSearches.indexOf(cityInput.value);
+      previousSearches.splice(cityCopyIndex, 1);
+      previousSearches.splice(0, 0, cityInput.value);
+      localStorage.setItem("previous-search", JSON.stringify(previousSearches));
+    } else {
+      previousSearches.splice(0, 0, cityInput.value);
+      localStorage.setItem("previous-search", JSON.stringify(previousSearches));
+      console.log(previousSearches);
+    }
+  }
+};
+
+var deleteEntry = (index) => {
+  previousSearches.splice(index, 1);
+  localStorage.setItem("previous-search", JSON.stringify(previousSearches));
+};
+
 // load saved data
 var load = () => {
   var savedData = JSON.parse(localStorage.getItem("currentCity"));
-  console.log(savedData);
   if (savedData === null) {
     return false;
   } else if (savedData.cityName.length > 0) {
@@ -280,18 +311,14 @@ var load = () => {
     return false;
   }
 
-  loadPrevious();
+  loadPreviousEls();
 };
 
 // on click, send city search input to geo locate fetch
 $(searchForm).submit(function (e) {
   e.preventDefault();
 
-  if (cityInput.value != "") {
-    previousSearches.splice(0, 0, cityInput.value);
-    localStorage.setItem("previous-search", JSON.stringify(previousSearches));
-    console.log(previousSearches);
-  }
+  previousEntryCheck();
 
   // pull city name from text input
   var city = cityInput.value;
@@ -303,7 +330,7 @@ $(searchForm).submit(function (e) {
   fetchCityLatLon(city);
 
   // load previous searches
-  loadPrevious();
+  loadPreviousEls();
 });
 
 // currency input searches for exchange info
@@ -328,6 +355,8 @@ $(previousMenu).click(function (e) {
   e.preventDefault();
   console.log(e.target.textContent);
   cityInput.value = e.target.textContent;
+  previousEntryCheck();
+  loadPreviousEls();
   var city = e.target.textContent;
 
   fetchCityLatLon(city);
