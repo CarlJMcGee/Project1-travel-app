@@ -258,7 +258,7 @@ var loadPrevious = () => {
   previousSearches = JSON.parse(localStorage.getItem("previous-search"));
   for (var i = 1; i < previousSearches.length; i++) {
     var prevCity = document.createElement("a");
-    prevCity.className = "dropdown-item";
+    prevCity.className = "dropdown-item link-" + i;
     prevCity.innerHTML = previousSearches[i];
     previousMenu.append(prevCity);
   }
@@ -317,6 +317,15 @@ $(currencyForm).submit(function (e) {
 $(previousBtn).click(function (e) {
   e.preventDefault();
   document.querySelector(".dropdown").classList.toggle("is-active");
+});
+
+$(previousMenu).click(function (e) {
+  e.preventDefault();
+  console.log(e.target.textContent);
+  cityInput.value = e.target.textContent;
+  var city = e.target.textContent;
+
+  fetchCityLatLon(city);
 });
 
 // load city from local storage
