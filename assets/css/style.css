@@ -70,3 +70,9 @@ html {
     width: 97%;
   }
 }
+
+#dropdown-menu {
+  width: 100%;
+  text-transform: capitalize;
+  text-align: center;
+}

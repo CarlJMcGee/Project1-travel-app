@@ -258,7 +258,7 @@ var loadPrevious = () => {
   previousSearches = JSON.parse(localStorage.getItem("previous-search"));
   for (var i = 1; i < previousSearches.length; i++) {
     var prevCity = document.createElement("a");
-    prevCity.className = "dropdown-item link-" + i;
+    prevCity.className = "dropdown-item is-size-5";
     prevCity.innerHTML = previousSearches[i];
     previousMenu.append(prevCity);
   }
@@ -317,6 +317,11 @@ $(currencyForm).submit(function (e) {
 $(previousBtn).click(function (e) {
   e.preventDefault();
   document.querySelector(".dropdown").classList.toggle("is-active");
+});
+
+$(previousBtn).blur(function (e) {
+  e.preventDefault();
+  document.querySelector(".dropdown").classList.remove("is-active");
 });
 
 $(previousMenu).click(function (e) {
