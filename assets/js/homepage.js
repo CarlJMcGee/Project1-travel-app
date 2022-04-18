@@ -22,6 +22,10 @@ var currentCity = {
   money: [],
 };
 
+// previous searches
+var previousSearches = [];
+
+// save data to local storage
 var save = () => {
   localStorage.setItem("currentCity", JSON.stringify(currentCity));
 };
@@ -266,6 +270,12 @@ var load = () => {
 // on click, send city search input to geo locate fetch
 $(searchForm).submit(function (e) {
   e.preventDefault();
+
+  if (cityInput.value != "") {
+    previousSearches.push(cityInput.value);
+    localStorage.setItem("previous-search", JSON.stringify(previousSearches));
+    console.log(previousSearches);
+  }
 
   // pull city name from text input
   var city = cityInput.value;
