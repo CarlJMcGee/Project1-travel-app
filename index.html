@@ -36,7 +36,15 @@
     </form>
     <div class="column columns is-centered">
       <button type="submit" form="exchange-form" class="button background-quaternary column ml-2 p-0 has-text-light is-one-quarter" id="searchBtn">Search</button>
-      <button type="button" class="button background-quaternary column ml-2 p-0 has-text-light is-one-quarter" id="previous">Previous Searches</button>
+      <div class="dropdown column ml-2 p-0 is-one-quarter">
+        <div class="dropdown-trigger">
+        <button type="button" class="button background-quaternary column has-text-light is-full" id="previous" aria-haspopup="true" aria-controls="dropdown-menu">Previous Searches</button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+          <div class="dropdown-content" id="previous-menu">
+          </div>
+        </div>
+      </div>
     </div>
 
     <!--Currency info-->

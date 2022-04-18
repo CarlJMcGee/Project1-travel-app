@@ -6,6 +6,8 @@ var searchForm = document.querySelector(".search-form");
 var currencyForm = document.querySelector(".currency-form");
 var moneyInput = document.querySelector(".money-input");
 var moneyOutput = document.querySelector(".money-output");
+var previousBtn = document.querySelector("#previous");
+var previousMenu = document.querySelector("#previous-menu");
 
 // pull country code data from json file
 var currencyCode = [];
@@ -250,6 +252,18 @@ var fetchCityLatLon = (cityName) => {
     .catch((error) => console.log("error", error));
 };
 
+// add previous searches to dropdown menu
+var loadPrevious = () => {
+  $(previousMenu).empty();
+  previousSearches = JSON.parse(localStorage.getItem("previous-search"));
+  for (var i = 1; i < previousSearches.length; i++) {
+    var prevCity = document.createElement("a");
+    prevCity.className = "dropdown-item";
+    prevCity.innerHTML = previousSearches[i];
+    previousMenu.append(prevCity);
+  }
+};
+
 // load saved data
 var load = () => {
   var savedData = JSON.parse(localStorage.getItem("currentCity"));
@@ -265,6 +279,8 @@ var load = () => {
   } else {
     return false;
   }
+
+  loadPrevious();
 };
 
 // on click, send city search input to geo locate fetch
@@ -272,7 +288,7 @@ $(searchForm).submit(function (e) {
   e.preventDefault();
 
   if (cityInput.value != "") {
-    previousSearches.push(cityInput.value);
+    previousSearches.splice(0, 0, cityInput.value);
     localStorage.setItem("previous-search", JSON.stringify(previousSearches));
     console.log(previousSearches);
   }
@@ -285,6 +301,9 @@ $(searchForm).submit(function (e) {
 
   // send city name to geo locate API
   fetchCityLatLon(city);
+
+  // load previous searches
+  loadPrevious();
 });
 
 // currency input searches for exchange info
@@ -293,6 +312,11 @@ $(currencyForm).submit(function (e) {
 
   // send saved city location data to currency code finder
   getCurrencyCode(currentCity.location);
+});
+
+$(previousBtn).click(function (e) {
+  e.preventDefault();
+  document.querySelector(".dropdown").classList.toggle("is-active");
 });
 
 // load city from local storage
