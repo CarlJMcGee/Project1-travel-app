@@ -255,16 +255,17 @@ var fetchCityLatLon = (cityName) => {
 };
 
 // add previous searches to dropdown menu
-var loadPrevious = () => {
+var loadPreviousEls = () => {
   $(previousMenu).empty();
   if (localStorage.getItem("previous-search")) {
     previousSearches = JSON.parse(localStorage.getItem("previous-search"));
   }
-  for (var i = 0; i < previousSearches.length; i++) {
-    if (previousSearches[i] === {}) {
-      previousSearches.splice(i, 1);
-    }
+
+  if (previousSearches.length > 9) {
+    previousSearches.splice(9, 1);
+    localStorage.setItem("previous-search", JSON.stringify(previousSearches));
   }
+
   for (var i = 1; i < previousSearches.length; i++) {
     var prevCity = document.createElement("a");
     prevCity.className = "dropdown-item is-size-5";
@@ -310,7 +311,7 @@ var load = () => {
     return false;
   }
 
-  loadPrevious();
+  loadPreviousEls();
 };
 
 // on click, send city search input to geo locate fetch
@@ -329,7 +330,7 @@ $(searchForm).submit(function (e) {
   fetchCityLatLon(city);
 
   // load previous searches
-  loadPrevious();
+  loadPreviousEls();
 });
 
 // currency input searches for exchange info
@@ -355,7 +356,7 @@ $(previousMenu).click(function (e) {
   console.log(e.target.textContent);
   cityInput.value = e.target.textContent;
   previousEntryCheck();
-  loadPrevious();
+  loadPreviousEls();
   var city = e.target.textContent;
 
   fetchCityLatLon(city);
