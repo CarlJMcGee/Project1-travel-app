@@ -40,6 +40,8 @@ Currency Exchange 💲  Displays:
 
 [GitHub Deployed Link](https://carljmcgee.github.io/Project1-travel-app/)
 
-![SunFund](https://user-images.githubusercontent.com/99060667/163655301-afa6d07e-848a-4f10-af6d-8de205593105.png)
 
-![SunFund Tokyo](https://user-images.githubusercontent.com/99060667/163655503-511c2604-1eb8-4422-9be9-c89acdd5057b.png)
+### Page Images 
+<img width="1437" alt="Minneapolis" src="https://user-images.githubusercontent.com/99060667/163896518-325b2194-6630-48a9-818e-14c1838c0cfd.png">
+
+![Tokyo](https://user-images.githubusercontent.com/99060667/163896525-8e811b1e-12e2-4709-9b01-cfc3949bfc13.png)
