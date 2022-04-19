@@ -1,32 +1,36 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/CarlJMcGee/Project1-travel-app)
 ![GitHub top language](https://img.shields.io/github/languages/top/CarlJMcGee/Project1-travel-app)
 
-
 # SunFund
-TEAM #2 
- 
+
+TEAM #2
+
 ## UofM BootCamp: Project 1
 
-### Purpose: 
+### Purpose:
+
 When search is input, App fetches data for Weather and Current Exchange upon entering the city name.
 
 How to use:
 Click on search bar
-Type  "city name" 
+Type "city name"
 
 ### Features
+
 Weather ☀️ Displays:
- - Weather icon
- - Temperature 
- - Windspeed
- - Humidity
- - AQI
 
+- Weather icon
+- Temperature
+- Windspeed
+- Humidity
+- AQI
 
-Currency Exchange 💲  Displays:
- - USD to Other Currencies 
- 
+Currency Exchange 💲 Displays:
+
+- USD to Other Currencies
+
 ### Credits
+
 - Cam Cole
 - Carl McGee
 - Jason Arriaza
@@ -34,14 +38,12 @@ Currency Exchange 💲  Displays:
 - Megan Gedde
 - Rejene Giinther
 
-
 [GitHub Project Repo](https://github.com/CarlJMcGee/Project1-travel-app)
-
 
 [GitHub Deployed Link](https://carljmcgee.github.io/Project1-travel-app/)
 
+### Page Images
 
-### Page Images 
-<img width="1437" alt="Minneapolis" src="https://user-images.githubusercontent.com/99060667/163896518-325b2194-6630-48a9-818e-14c1838c0cfd.png">
+<img width="1437" alt="Minneapolis" src="./assets\img\screenshot-carljmcgee.github.io-2022.04.18-19_55_27.png">
 
-![Tokyo](https://user-images.githubusercontent.com/99060667/163896525-8e811b1e-12e2-4709-9b01-cfc3949bfc13.png)
+<img width="1437" alt="Minneapolis" src="./assets\img\screenshot-carljmcgee.github.io-2022.04.18-19_55_28.png">
