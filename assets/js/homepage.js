@@ -134,11 +134,27 @@ var weatherInfoHandler = ({ temp, humidity, wind_speed, uvi }, ic) => {
   windEl.innerHTML = "Wind: " + wind_speed + "mph";
   weatherInfoContainer.append(windEl);
 
-  // air quality
-  var airEl = document.createElement("p");
-  airEl.className = "uvi column";
-  airEl.innerHTML = "UV Index: " + uvi;
-  weatherInfoContainer.append(airEl);
+  // UV Index
+  var UVI = document.createElement("p");
+  UVI.className = "uvi column";
+  UVI.setAttribute("id", "UVI");
+  UVI.innerHTML = "UV Index: ";
+  var UVISpan = document.createElement("span");
+  UVISpan.className = "uvi-span";
+  UVISpan.innerHTML = uvi;
+  UVI.append(UVISpan);
+  if (uvi > 10) {
+    UVISpan.classList.add("UV-severe");
+  } else if (uvi >= 8) {
+    UVISpan.classList.add("UV-very-high");
+  } else if (uvi >= 6) {
+    UVISpan.classList.add("UV-high");
+  } else if (uvi >= 3) {
+    UVISpan.classList.add("UV-moderate");
+  } else if (uvi >= 0) {
+    UVISpan.classList.add("UV-low");
+  }
+  weatherInfoContainer.append(UVI);
 };
 
 // get weather and air data from airvisual API
