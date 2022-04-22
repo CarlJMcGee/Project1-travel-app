@@ -365,10 +365,16 @@ $(previousBtn).blur(function (e) {
   document.querySelector(".dropdown").classList.remove("is-active");
 });
 
+// search from previous menu
 $(previousMenu).click(function (e) {
   e.preventDefault();
   console.log(e.target.textContent);
   cityInput.value = e.target.textContent;
+  // pull city name from text input
+  var city = cityInput.value;
+  //save city name
+  currentCity.cityName.splice(0, 1, city);
+
   previousEntryCheck();
   loadPreviousEls();
   var city = e.target.textContent;
