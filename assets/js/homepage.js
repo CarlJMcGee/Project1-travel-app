@@ -45,7 +45,7 @@ function getCurrencyCode(geo) {
 }
 
 // create updated weather and air info
-var weatherInfoHandler = ({ tp, hu, ws, ic }, { aqius }) => {
+var weatherInfoHandler = ({ temp, humidity, wind_speed, uvi }, ic) => {
   // empty old data from container
   $(weatherInfoContainer).empty();
 
@@ -117,29 +117,27 @@ var weatherInfoHandler = ({ tp, hu, ws, ic }, { aqius }) => {
   weatherInfoContainer.append(iconEl);
 
   // temp
-  // convert ℃ to ℉
-  var tempF = (tp * 9) / 5 + 32;
   var tempEl = document.createElement("p");
   tempEl.className = "temp column";
-  tempEl.innerHTML = "Temperature: " + tempF + "℉";
+  tempEl.innerHTML = "Temperature: " + temp + "℉";
   weatherInfoContainer.append(tempEl);
 
   // humidity
   var humidityEl = document.createElement("p");
   humidityEl.className = "humidity column";
-  humidityEl.innerHTML = "Humidity: " + hu + "%";
+  humidityEl.innerHTML = "Humidity: " + humidity + "%";
   weatherInfoContainer.append(humidityEl);
 
   // windspeed
   var windEl = document.createElement("p");
   windEl.className = "wind column";
-  windEl.innerHTML = "Wind: " + ws + "m/s";
+  windEl.innerHTML = "Wind: " + wind_speed + "mph";
   weatherInfoContainer.append(windEl);
 
   // air quality
   var airEl = document.createElement("p");
-  airEl.className = "air column";
-  airEl.innerHTML = "Air Quality Index (US): " + aqius;
+  airEl.className = "uvi column";
+  airEl.innerHTML = "UV Index: " + uvi;
   weatherInfoContainer.append(airEl);
 };
 
@@ -151,11 +149,11 @@ var weatherFetch = (lat, lon) => {
   };
 
   fetch(
-    "https://api.airvisual.com/v2/nearest_city?lat=" +
+    "https://api.openweathermap.org/data/2.5/onecall?lat=" +
       lat +
       "&lon=" +
       lon +
-      "&key=7142c257-d9cf-43ad-9138-af6e684b02ac",
+      "&units=imperial&appid=2d81bc1f1b05a9a201fdb0947c29daec",
     requestOptions
   )
     .then((response) => response.json())
@@ -164,8 +162,8 @@ var weatherFetch = (lat, lon) => {
 
       // send current weather and pollution data to handler to be drawn
       weatherInfoHandler(
-        airWeather.data.current.weather,
-        airWeather.data.current.pollution
+        airWeather.current,
+        airWeather.current.weather[0].icon
       );
     })
     .catch((error) => console.log("error", error));
