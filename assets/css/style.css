@@ -76,3 +76,33 @@ html {
   text-transform: capitalize;
   text-align: center;
 }
+
+.UV-severe {
+  background-color: rgb(108, 73, 201);
+  color: whitesmoke;
+  border-radius: 0.3125em;
+}
+
+.UV-very-high {
+  background-color: rgb(217, 0, 17);
+  color: whitesmoke;
+  border-radius: 0.3125em;
+}
+
+.UV-high {
+  background-color: rgb(249, 89, 1);
+  color: whitesmoke;
+  border-radius: 0.3125em;
+}
+
+.UV-moderate {
+  background-color: rgb(214, 197, 0);
+  color: whitesmoke;
+  border-radius: 0.3125em;
+}
+
+.UV-low {
+  background-color: rgb(41, 149, 1);
+  color: whitesmoke;
+  border-radius: 0.3125em;
+}

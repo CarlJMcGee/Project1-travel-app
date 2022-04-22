@@ -45,7 +45,7 @@ function getCurrencyCode(geo) {
 }
 
 // create updated weather and air info
-var weatherInfoHandler = ({ tp, hu, ws, ic }, { aqius }) => {
+var weatherInfoHandler = ({ temp, humidity, wind_speed, uvi }, ic) => {
   // empty old data from container
   $(weatherInfoContainer).empty();
 
@@ -117,30 +117,44 @@ var weatherInfoHandler = ({ tp, hu, ws, ic }, { aqius }) => {
   weatherInfoContainer.append(iconEl);
 
   // temp
-  // convert ℃ to ℉
-  var tempF = (tp * 9) / 5 + 32;
   var tempEl = document.createElement("p");
   tempEl.className = "temp column";
-  tempEl.innerHTML = "Temperature: " + tempF + "℉";
+  tempEl.innerHTML = "Temperature: " + temp + "℉";
   weatherInfoContainer.append(tempEl);
 
   // humidity
   var humidityEl = document.createElement("p");
   humidityEl.className = "humidity column";
-  humidityEl.innerHTML = "Humidity: " + hu + "%";
+  humidityEl.innerHTML = "Humidity: " + humidity + "%";
   weatherInfoContainer.append(humidityEl);
 
   // windspeed
   var windEl = document.createElement("p");
   windEl.className = "wind column";
-  windEl.innerHTML = "Wind: " + ws + "m/s";
+  windEl.innerHTML = "Wind: " + wind_speed + "mph";
   weatherInfoContainer.append(windEl);
 
-  // air quality
-  var airEl = document.createElement("p");
-  airEl.className = "air column";
-  airEl.innerHTML = "Air Quality Index (US): " + aqius;
-  weatherInfoContainer.append(airEl);
+  // UV Index
+  var UVI = document.createElement("p");
+  UVI.className = "uvi column";
+  UVI.setAttribute("id", "UVI");
+  UVI.innerHTML = "UV Index: ";
+  var UVISpan = document.createElement("span");
+  UVISpan.className = "uvi-span";
+  UVISpan.innerHTML = uvi;
+  UVI.append(UVISpan);
+  if (uvi > 10) {
+    UVISpan.classList.add("UV-severe");
+  } else if (uvi >= 8) {
+    UVISpan.classList.add("UV-very-high");
+  } else if (uvi >= 6) {
+    UVISpan.classList.add("UV-high");
+  } else if (uvi >= 3) {
+    UVISpan.classList.add("UV-moderate");
+  } else if (uvi >= 0) {
+    UVISpan.classList.add("UV-low");
+  }
+  weatherInfoContainer.append(UVI);
 };
 
 // get weather and air data from airvisual API
@@ -151,11 +165,11 @@ var weatherFetch = (lat, lon) => {
   };
 
   fetch(
-    "https://api.airvisual.com/v2/nearest_city?lat=" +
+    "https://api.openweathermap.org/data/2.5/onecall?lat=" +
       lat +
       "&lon=" +
       lon +
-      "&key=7142c257-d9cf-43ad-9138-af6e684b02ac",
+      "&units=imperial&appid=2d81bc1f1b05a9a201fdb0947c29daec",
     requestOptions
   )
     .then((response) => response.json())
@@ -164,8 +178,8 @@ var weatherFetch = (lat, lon) => {
 
       // send current weather and pollution data to handler to be drawn
       weatherInfoHandler(
-        airWeather.data.current.weather,
-        airWeather.data.current.pollution
+        airWeather.current,
+        airWeather.current.weather[0].icon
       );
     })
     .catch((error) => console.log("error", error));
@@ -351,10 +365,16 @@ $(previousBtn).blur(function (e) {
   document.querySelector(".dropdown").classList.remove("is-active");
 });
 
+// search from previous menu
 $(previousMenu).click(function (e) {
   e.preventDefault();
   console.log(e.target.textContent);
   cityInput.value = e.target.textContent;
+  // pull city name from text input
+  var city = cityInput.value;
+  //save city name
+  currentCity.cityName.splice(0, 1, city);
+
   previousEntryCheck();
   loadPreviousEls();
   var city = e.target.textContent;
